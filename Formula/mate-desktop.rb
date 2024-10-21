@@ -12,6 +12,7 @@ class MateDesktop < Formula
   depends_on "gtk-doc" => :build
   depends_on "z80oolong/dep/autoconf-archive@2023" => :build
   depends_on "z80oolong/dep/mate-common@1.24.0" => :build
+  depends_on "glibc"
   depends_on "gettext"
   depends_on "intltool"
   depends_on "glib"

@@ -15,8 +15,9 @@ class QtAT4 < Formula
   depends_on "dbus-glib"
   depends_on "mysql@5.7"
   depends_on "sqlite"
-  depends_on "postgresql@10"
+  depends_on "postgresql@11"
   depends_on "libiodbc"
+  depends_on "glibc"
 
   patch :p1, :DATA
 
@@ -60,6 +61,9 @@ class QtAT4 < Formula
       -no-gtkstyle
       -no-nas-sound
     ]
+
+#    ENV.append "LDFLAGS", "-lQtCLucene -lpthread"
+    ENV.append "LDFLAGS", "-Wl,-rpath,#{buildpath}/lib -lpthread"
 
     system "./configure", *args
     system "make"

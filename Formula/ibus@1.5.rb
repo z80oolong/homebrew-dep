@@ -10,6 +10,7 @@ class IbusAT15 < Formula
   keg_only :versioned_formula
 
   depends_on "pkg-config" => :build
+  depends_on "glibc"
   depends_on "gtk+"
   depends_on "gtk+3"
   depends_on "gtk-doc"
@@ -25,6 +26,7 @@ class IbusAT15 < Formula
   def install
     venv = virtualenv_create(libexec, "python3")
     unicode_share = Formula["z80oolong/dep/unicode-data@15"].opt_share
+    ENV.append "LDFLAGS", "-ldl -lm"
     system "./configure", "--disable-debug",
                           "--prefix=#{prefix}",
                           "--with-python=python3",
