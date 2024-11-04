@@ -9,11 +9,12 @@ class GnomeMenusAT336 < Formula
   keg_only :versioned_formula
 
   depends_on "pkg-config" => :build
-  depends_on "gnome-common" => :build
+  depends_on "z80oolong/dep/gnome-common@3.18.0" => :build
   depends_on "gtk-doc" => :build
   depends_on "libtool" => :build
   depends_on "vala" => :build
-  depends_on "z80oolong/dep/lxml@4.9" => :build
+  depends_on "python@3.11" => :build
+  depends_on "z80oolong/dep/lxml@5.3" => :build
   depends_on "glib"
   depends_on "gtk+3"
   depends_on "libgtop"
@@ -26,8 +27,8 @@ class GnomeMenusAT336 < Formula
   depends_on "libxrender"
 
   def install
-    ENV["PYTHON"] = "#{Formula["python@3.11"].opt_bin}/python3"
-    ENV.prepend_path "PYTHONPATH", "#{Formula["z80oolong/dep/lxml@4.9"].opt_prefix}/libexec/lib/python3.11/site-packages"
+    ENV["PYTHON"] = "#{Formula["python@3.11"].opt_bin}/python3.11"
+    ENV.prepend_path "PYTHONPATH", "#{Formula["z80oolong/dep/lxml@5.3"].opt_prefix}/libexec/lib/python3.11/site-packages"
 
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",

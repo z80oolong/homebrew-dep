@@ -1,10 +1,10 @@
-class LxmlAT49 < Formula
+class LxmlAT53 < Formula
   include Language::Python::Virtualenv
 
   desc "Pythonic XML and HTML processing library"
   homepage "https://lxml.de/"
-  url "https://lxml.de/files/lxml-4.9.2.tgz"
-  sha256 "2455cfaeb7ac70338b3257f41e21f0724f4b5b0c0e7702da67ee6c3640835b67"
+  url "https://lxml.de/files/lxml-5.3.0.tgz"
+  sha256 "4e109ca30d1edec1ac60cdbe341905dc3b8f55b16855e03a54aaf59e51ec8c6f"
   license "BSD-3-Clause"
   revision 1
 
@@ -13,10 +13,6 @@ class LxmlAT49 < Formula
   depends_on "libxslt"
 
   def install
-    ENV.append "CFLAGS", "-Wno-incompatible-pointer-types"
-    ENV.append "CFLAGS", "-Wno-int-conversion"
-    ENV.append "CFLAGS", "-Wno-implicit-function-declaration"
-
     venv = virtualenv_create(libexec, "python3")
     venv.pip_install resources
     venv.pip_install buildpath/"."

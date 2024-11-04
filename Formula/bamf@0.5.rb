@@ -10,11 +10,12 @@ class BamfAT05 < Formula
   depends_on "automake" => :build
   depends_on "autoconf" => :build
   depends_on "pkg-config" => :build
-  depends_on "gnome-common" => :build
+  depends_on "z80oolong/dep/gnome-common@3.18.0" => :build
   depends_on "gtk-doc" => :build
   depends_on "libtool" => :build
   depends_on "vala" => :build
-  depends_on "z80oolong/dep/lxml@4.9" => :build
+  depends_on "python@3.11" => :build
+  depends_on "z80oolong/dep/lxml@5.3" => :build
   depends_on "systemd"
   depends_on "glib"
   depends_on "gtk+3"
@@ -29,8 +30,9 @@ class BamfAT05 < Formula
   depends_on "libxrender"
 
   def install
-    ENV["PYTHON"] = "#{Formula["python@3.11"].opt_bin}/python3"
-    ENV.prepend_path "PYTHONPATH", "#{Formula["z80oolong/dep/lxml@4.9"].opt_prefix}/libexec/lib/python3.11/site-packages"
+    ENV["LC_ALL"] = "C"
+    ENV["PYTHON"] = "#{Formula["python@3.11"].opt_bin}/python3.11"
+    ENV.prepend_path "PYTHONPATH", "#{Formula["z80oolong/dep/lxml@5.3"].opt_prefix}/libexec/lib/python3.11/site-packages"
     inreplace "./data/Makefile.am", %r{^systemddir = /usr/lib/systemd/user}, "systemddir = #{prefix}/lib/systemd/user"
 
     system "autoupdate"
