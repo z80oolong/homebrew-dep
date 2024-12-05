@@ -6,23 +6,23 @@ class DconfAT0 < Formula
 
   keg_only :versioned_formula
 
+  depends_on "cmake" => :build
   depends_on "gettext" => :build
   depends_on "meson" => :build
-  depends_on "cmake" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
   depends_on "dbus"
-  depends_on "systemd"
   depends_on "glib"
   depends_on "gtk+3"
   depends_on "libffi"
   depends_on "libxml2"
+  depends_on "systemd"
 
   def install
     mkdir "build" do
-      meson_args = std_meson_args.dup
+      meson_args  = std_meson_args
       meson_args << "-Dbash_completion=false"
-      meson_args << "-Dsystemduserunitdir=#{prefix}/lib/systemd/user"
+      meson_args << "-Dsystemduserunitdir=#{lib}/systemd/user"
       meson_args << "-Dman=false"
       meson_args << "-Dgtk_doc=false"
 
@@ -30,17 +30,43 @@ class DconfAT0 < Formula
       system "ninja"
       system "ninja", "install", "-v"
     end
+  end
 
-    system "mkdir", "-p", "#{prefix}/etc/dconf/db/site.d"
-    system "mkdir", "-p", "#{prefix}/etc/dconf/db/distro.d"
-    system "touch", "#{prefix}/etc/dconf/db/site"
-    system "touch", "#{prefix}/etc/dconf/db/distro"
-    system "touch", "#{prefix}/etc/dconf/db/site.d/.empty"
-    system "touch", "#{prefix}/etc/dconf/db/distro.d/.empty"
-    system "#{bin}/dconf", "update"
+  def post_install
+    unless (etc/"dconf/db/site.d").exist?
+      ohai "Make Directory #{etc}/dconf/db/site.d"
+      (etc/"dconf/db/site.d").mkpath
+    end
+
+    unless (etc/"dconf/db/distro.d").exist?
+      ohai "Make Directory #{etc}/dconf/db/distro.d"
+      (etc/"dconf/db/distro.d").mkpath
+    end
+
+    unless (etc/"dconf/db/site").exist?
+      ohai "Touch #{etc}/dconf/db/site"
+      touch etc/"dconf/db/site"
+    end
+
+    unless (etc/"dconf/db/distro").exist?
+      ohai "Touch #{etc}/dconf/db/distro"
+      touch etc/"dconf/db/distro"
+    end
+
+    unless (etc/"dconf/db/site.d/.empty").exist?
+      ohai "Touch #{etc}/dconf/db/site.d/.empty"
+      touch etc/"dconf/db/site.d/.empty"
+    end
+
+    unless (etc/"dconf/db/distro.d/.empty").exist?
+      ohai "Touch #{etc}/dconf/db/distro.d/.empty"
+      touch etc/"dconf/db/distro.d/.empty"
+    end
+
+    system bin/"dconf", "update"
   end
 
   test do
-    system "#{bin}/dconf", "--version"
+    system bin/"dconf", "--version"
   end
 end

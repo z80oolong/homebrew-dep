@@ -10,12 +10,12 @@ class Libwnck3AT336 < Formula
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
-  depends_on "gobject-introspection"
-  depends_on "startup-notification"
+  depends_on "glib"
   depends_on "glibc"
+  depends_on "gobject-introspection"
   depends_on "gtk+3"
   depends_on "pcre"
-  depends_on "glib"
+  depends_on "startup-notification"
 
   def install
     mkdir "build" do

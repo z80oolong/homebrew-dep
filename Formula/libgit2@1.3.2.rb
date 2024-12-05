@@ -5,22 +5,36 @@ class Libgit2AT132 < Formula
   sha256 "3a4469b32b73d53f9dbb7bf17b61b0cfb7dae9020e199f928fa96f12d6eb29cb"
   license "GPL-2.0-only" => { with: "GCC-exception-2.0" }
 
+  keg_only :versioned_formula
+
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "libssh2"
   depends_on "openssl@3"
 
-  keg_only :versioned_formula
-
   def install
-    args = %w[-DBUILD_EXAMPLES=OFF -DBUILD_TESTS=OFF -DUSE_SSH=ON]
+    args  = std_cmake_args
+    args << "-DBUILD_EXAMPLES=OFF"
+    args << "-DBUILD_TESTS=OFF"
+    args << "-DUSE_SSH=ON"
+    args << "-DBUILD_SHARED_LIBS=ON"
 
-    system "cmake", "-S", ".", "-B", "build", "-DBUILD_SHARED_LIBS=ON", *args, *std_cmake_args
-    system "cmake", "--build", "build"
-    system "cmake", "--install", "build"
+    mkdir "build" do
+      system "cmake", "..", *args
+      system "make"
+      system "make", "install"
+    end
 
-    system "cmake", "-S", ".", "-B", "build-static", "-DBUILD_SHARED_LIBS=OFF", *args, *std_cmake_args
-    system "cmake", "--build", "build-static"
+    args.delete "-DBUILD_SHARED_LIBS=ON"
+    args << "-DBUILD_SHARED_LIBS=OFF"
+
+    mkdir "build-static" do
+      system "cmake", "..", *args
+      system "make"
+      system "make", "install"
+    end
+
+    ohai "Install ./build-static/libgit2.a => #{lib}/libgit2.a"
     lib.install "build-static/libgit2.a"
   end
 

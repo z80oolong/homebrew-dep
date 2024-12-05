@@ -8,17 +8,21 @@ class XfconfAT4193 < Formula
   keg_only :versioned_formula
 
   depends_on "libtool" => :build
+  depends_on "perl" => :build
   depends_on "pkg-config" => :build
   depends_on "z80oolong/dep/xfce4-dev-tools@4.19.3" => :build
-  depends_on "z80oolong/dep/libxfce4util@4.19.3"
-  depends_on "gobject-introspection"
+  depends_on "dbus"
   depends_on "gettext"
   depends_on "glib"
+  depends_on "gobject-introspection"
   depends_on "gtk-doc"
-  depends_on "dbus"
+  depends_on "z80oolong/dep/libxfce4util@4.19.3"
 
   def install
-    system "./configure", "--disable-silent-rules", *std_configure_args
+    args  = std_configure_args
+    args << "--disable-silent-rules"
+
+    system "./configure", *args
     system "make"
     system "make", "install"
   end

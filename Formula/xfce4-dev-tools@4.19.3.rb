@@ -9,15 +9,16 @@ class Xfce4DevToolsAT4193 < Formula
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
-  depends_on "meson" => :build
   depends_on "libtool" => :build
   depends_on "libxslt" => :build
+  depends_on "meson" => :build
   depends_on "pkg-config" => :build
   depends_on "gettext"
   depends_on "glib"
 
   def install
-    system "./configure", "--prefix=#{prefix}"
+    system "./configure", *std_configure_args
+    system "make"
     system "make", "install"
   end
 

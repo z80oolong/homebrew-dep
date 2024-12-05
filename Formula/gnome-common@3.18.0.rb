@@ -7,10 +7,9 @@ class GnomeCommonAT3180 < Formula
 
   keg_only :versioned_formula
 
-  conflicts_with "autoconf-archive", because: "both install ax_check_enable_debug.m4 and ax_code_coverage.m4"
-
   def install
-    system "./configure", "--prefix=#{prefix}"
+    system "./configure", *std_configure_args
+    system "make"
     system "make", "install"
   end
 end

@@ -8,11 +8,11 @@ class AutoconfArchiveAT2023 < Formula
 
   keg_only :versioned_formula
 
-  # autoconf-archive is useless without autoconf
   depends_on "autoconf"
 
   def install
-    system "./configure", "--prefix=#{prefix}"
+    system "./configure", *std_configure_args
+    system "make"
     system "make", "install"
   end
 

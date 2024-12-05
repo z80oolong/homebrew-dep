@@ -8,15 +8,14 @@ class LxmlAT53 < Formula
   license "BSD-3-Clause"
   revision 1
 
-  depends_on "python@3.11" # or the Python version you are using
   depends_on "libxml2"
   depends_on "libxslt"
+  depends_on "python@3.11" # or the Python version you are using
 
   def install
     venv = virtualenv_create(libexec, "python3")
     venv.pip_install resources
     venv.pip_install buildpath/"."
-    bin.install_symlink libexec/"bin/lxml"
   end
 
   test do
