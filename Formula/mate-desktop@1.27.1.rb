@@ -1,8 +1,10 @@
-class MateDesktop < Formula
+class MateDesktopAT1271 < Formula
   desc "Common build files for MATE desktop environment"
   homepage "https://github.com/mate-desktop/mate-common"
   url "https://github.com/mate-desktop/mate-desktop/releases/download/v1.27.1/mate-desktop-1.27.1.tar.xz"
   sha256 "eb194b0525c2b49b22f44e767d38ababa2139bf9caa7dc209e6f93abd76364ea"
+
+  keg_only :versioned_formula
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -34,14 +36,7 @@ class MateDesktop < Formula
   end
 
   def post_install
-    if (share/"glib-2.0/schemas/gschemas.compiled").exist?
-      ohai "Remove #{share}/glib-2.0/schemas/gschemas.compiled"
-      (share/"glib-2.0/schemas/gschemas.compiled").unlink
-    end
-
-    Dir.chdir("#{HOMEBREW_PREFIX}/share/glib-2.0/schemas") do
-      system "#{Formula["glib"].opt_bin}/glib-compile-schemas", "--targetdir=.", "."
-    end
+    system "#{Formula["glib"].opt_bin}/glib-compile-schemas", share/"glib-2.0/schemas"
   end
 
   test do

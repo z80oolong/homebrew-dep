@@ -33,34 +33,34 @@ class DconfAT0 < Formula
   end
 
   def post_install
-    unless (etc/"dconf/db/site.d").exist?
-      ohai "Make Directory #{etc}/dconf/db/site.d"
-      (etc/"dconf/db/site.d").mkpath
+    unless (prefix/"etc/dconf/db/site.d").exist?
+      ohai "Make Directory #{prefix}/etc/dconf/db/site.d"
+      (prefix/"etc/dconf/db/site.d").mkpath
     end
 
-    unless (etc/"dconf/db/distro.d").exist?
-      ohai "Make Directory #{etc}/dconf/db/distro.d"
-      (etc/"dconf/db/distro.d").mkpath
+    unless (prefix/"etc/dconf/db/distro.d").exist?
+      ohai "Make Directory #{prefix}/etc/dconf/db/distro.d"
+      (prefix/"etc/dconf/db/distro.d").mkpath
     end
 
-    unless (etc/"dconf/db/site").exist?
-      ohai "Touch #{etc}/dconf/db/site"
-      touch etc/"dconf/db/site"
+    unless (prefix/"etc/dconf/db/site").exist?
+      ohai "Touch #{prefix}/etc/dconf/db/site"
+      touch prefix/"etc/dconf/db/site"
     end
 
     unless (etc/"dconf/db/distro").exist?
-      ohai "Touch #{etc}/dconf/db/distro"
-      touch etc/"dconf/db/distro"
+      ohai "Touch #{prefix}/etc/dconf/db/distro"
+      touch prefix/"etc/dconf/db/distro"
     end
 
-    unless (etc/"dconf/db/site.d/.empty").exist?
-      ohai "Touch #{etc}/dconf/db/site.d/.empty"
-      touch etc/"dconf/db/site.d/.empty"
+    unless (prefix/"etc/dconf/db/site.d/.empty").exist?
+      ohai "Touch #{prefix}/etc/dconf/db/site.d/.empty"
+      touch prefix/"etc/dconf/db/site.d/.empty"
     end
 
-    unless (etc/"dconf/db/distro.d/.empty").exist?
-      ohai "Touch #{etc}/dconf/db/distro.d/.empty"
-      touch etc/"dconf/db/distro.d/.empty"
+    unless (prefix/"etc/dconf/db/distro.d/.empty").exist?
+      ohai "Touch #{prefix}/etc/dconf/db/distro.d/.empty"
+      touch prefix/"etc/dconf/db/distro.d/.empty"
     end
 
     system bin/"dconf", "update"
