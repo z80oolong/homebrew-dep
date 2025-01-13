@@ -41,11 +41,9 @@ class FcitxAT5110 < Formula
       args << "-DBUILD_SHARED_LIBS=ON"
       args << "-DUSE_SYSTEM_UTHASH=OFF"
 
-      mkdir "build" do
-        system "cmake", "..", *args
-        system "make"
-        system "make", "install"
-      end
+      system "cmake", "-S", ".", "-B", "build", *args
+      system "cmake", "--build", "build"
+      system "cmake", "--install", "build"
     end
 
     args  = std_cmake_args.dup
@@ -55,12 +53,9 @@ class FcitxAT5110 < Formula
     args << "-DUSE_SYSTEMD=OFF"
     args << "-DENABLE_LIBUUID=OFF"
 
-    
-    mkdir "build" do
-      system "cmake", "..", *args
-      system "make"
-      system "make", "install"
-    end
+    system "cmake", "-S", ".", "-B", "build", *args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
 
     resource("fcitx5-gclient").stage do
       args  = std_cmake_args
@@ -70,11 +65,9 @@ class FcitxAT5110 < Formula
       args << "-DENABLE_GTK4_IM_MODULE=OFF"
       args << "-DENABLE_SNOOPER=OFF"
 
-      mkdir "build" do
-        system "cmake", "..", *args
-        system "make"
-        system "make", "install"
-      end
+      system "cmake", "-S", ".", "-B", "build", *args
+      system "cmake", "--build", "build"
+      system "cmake", "--install", "build"
     end
   end
 

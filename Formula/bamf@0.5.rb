@@ -14,9 +14,10 @@ class BamfAT05 < Formula
   depends_on "pkg-config" => :build
   depends_on "python@3.11" => :build
   depends_on "vala" => :build
-  depends_on "z80oolong/dep/gnome-common@3.18.0" => :build
+  depends_on "z80oolong/dep/gnome-desktop@3.36" => :build
   depends_on "z80oolong/dep/lxml@5.3" => :build
   depends_on "glib"
+  depends_on "glibc"
   depends_on "gtk+3"
   depends_on "libgtop"
   depends_on "libx11"
@@ -27,13 +28,13 @@ class BamfAT05 < Formula
   depends_on "libxrender"
   depends_on "startup-notification"
   depends_on "systemd"
-  depends_on "z80oolong/dep/libwnck3@3.36"
 
   def install
     ENV["LC_ALL"] = "C"
     ENV["PYTHON"] = Formula["python@3.11"].opt_bin/"python3.11"
     ENV.prepend_path "PYTHONPATH",
       Formula["z80oolong/dep/lxml@5.3"].opt_libexec/"lib/python3.11/site-packages"
+
     inreplace "./data/Makefile.am",
       %r{^systemddir = /usr/lib/systemd/user}, "systemddir = #{lib}/systemd/user"
 

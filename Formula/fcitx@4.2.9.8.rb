@@ -35,11 +35,9 @@ class FcitxAT4298 < Formula
     args << "-DENABLE_QT_GUI=OFF"
     args << "-DENABLE_GIR=OFF"
 
-    mkdir "build" do
-      system "cmake", "..", *args
-      system "make"
-      system "make", "install"
-    end
+    system "cmake", "-S", ".", "-B", "build", *args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   def caveats
