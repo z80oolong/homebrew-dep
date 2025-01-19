@@ -8,6 +8,22 @@
 
 なお、各種雑多な Formula が含まれるため、本 Tap リポジトリの各 Formula の詳細については割愛致します。どうか御了承下さい。
 
+## 使用法
+
+まず最初に、以下に示す Qiita の投稿及び Web ページの記述に基づいて、手元の端末に [Homebrew for Linux][BREW] を構築し、以下のように  ```brew tap``` コマンドを用いて本リポジトリを導入します。
+
+- [thermes 氏][THER]による "[Linuxbrew のススメ][THBR]" の投稿
+- [Homebrew for Linux の公式ページ][BREW]
+
+そして、本リポジトリに含まれる Formula を以下のようにインストールします。
+
+```
+ $ brew tap z80oolong/dep
+ $ brew install <formula>
+```
+
+なお、本リポジトリに含まれる Formula に関しては、```z80oolong/tmux, z80oolong/eaw, z80oolong/vte, z80oolong/mlterm/mlterm ...``` 等の各種 Tap リポジトリに同梱される Formula 等によって間接的に使用されます。
+
 ## 謝辞
 
 [Homebrew for Linux][BREW] の導入に関しては、 [Homebrew for Linux の公式ページ][BREW] の他、 [thermes 氏][THER]による "[Homebrew for Linux のススメ][THBR]" 及び [Homebrew for Linux][BREW] 関連の各種資料を参考にしました。 [Homebrew for Linux の開発コミュニティ][BREW]及び[thermes 氏][THER]を始めとする各氏に心より感謝致します。
